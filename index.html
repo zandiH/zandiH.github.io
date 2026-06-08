@@ -1,18 +1,9 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Hooshmand Zandi</title>
 
-  <body>
-     <div class="sidebar">
-     <h3>Navigation</h3>
-     <p><a href="#">Home</a></p>
-     <p><a href="#projects">Projects</a></p>
-     <p><a href="#publications">Publications</a></p>
-     <p><a href="#contact">Contact</a></p>
-     </div>
-  <body>
-    
   <style>
     body {
       font-family: Arial;
@@ -20,6 +11,20 @@
       margin: auto;
       padding: 40px;
       line-height: 1.6;
+
+      /* faint scientific background (figure-style) */
+      background-image: url("https://upload.wikimedia.org/wikipedia/commons/3/3f/Fourier_transform_time_frequency.gif");
+      background-size: cover;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    /* white overlay so text is readable */
+    .content {
+      background: rgba(255, 255, 255, 0.92);
+      padding: 25px;
+      border-radius: 10px;
     }
 
     h1 {
@@ -32,31 +37,78 @@
       padding: 15px;
       margin: 15px 0;
       border-radius: 8px;
+      background: white;
+    }
+
+    /* sidebar */
+    .sidebar {
+      position: fixed;
+      left: 20px;
+      top: 100px;
+      width: 160px;
+      font-size: 14px;
+    }
+
+    .sidebar a {
+      display: block;
+      margin: 5px 0;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .sidebar a:hover {
+      color: #0077cc;
     }
   </style>
 </head>
-  
 
-<body style="font-family: Arial; max-width: 800px; margin: 50px auto;">
+<body>
 
-  <h1>Hooshmand Zandi</h1>
-
-  <p>PhD in Geophysics</p>
-
-  <h2>Research Interests</h2>
-  <ul>
-    <li>Inverse problems</li>
-    <li>Geophysical modeling</li>
-    <li>Machine learning for Earth systems</li>
-  </ul>
-
-  <h2>Projects</h2>
-
-  <div class="card">
-    <h3>Geophysical Inversion Prototype</h3>
-    <p>Simple inversion framework for estimating model parameters from synthetic data.</p>
+  <!-- SIDEBAR (must be inside body) -->
+  <div class="sidebar">
+    <h3>Navigation</h3>
+    <p><a href="#">Home</a></p>
+    <p><a href="#projects">Projects</a></p>
+    <p><a href="#publications">Publications</a></p>
+    <p><a href="#contact">Contact</a></p>
   </div>
-  
+
+  <!-- MAIN CONTENT -->
+  <div class="content">
+
+    <h1>Hooshmand Zandi</h1>
+
+    <p>PhD in Geophysics</p>
+
+    <h2>Research Interests</h2>
+    <ul>
+      <li>Inverse problems</li>
+      <li>Geophysical modeling</li>
+      <li>Machine learning for Earth systems</li>
+    </ul>
+
+    <h2 id="projects">Projects</h2>
+
+    <div class="card">
+      <h3>Geophysical Inversion Prototype</h3>
+      <p>Simple inversion framework for estimating model parameters from synthetic data.</p>
+
+      <!-- FIGURE EXAMPLE -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Fourier_transform_time_frequency.gif"
+           style="width:100%; border-radius:8px;">
+      <p style="font-size:12px; color:gray;">
+        Example figure: signal representation in time-frequency domain
+      </p>
+    </div>
+
+    <h2 id="publications">Publications</h2>
+    <p>Coming soon...</p>
+
+    <h2 id="contact">Contact</h2>
+    <p>Email: your-email@example.com</p>
+
+  </div>
 
 </body>
+
 </html>
