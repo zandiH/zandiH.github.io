@@ -1,1 +1,24 @@
+<div class="content">
 
+  <h1>Projects</h1>
+
+  <div class="card">
+    <h3>Geophysical Inversion Prototype</h3>
+
+    <p>
+      Simple inversion framework for estimating model parameters from synthetic data.
+    </p>
+
+    <img src="your_figure.png" style="width:100%; border-radius:8px;">
+
+  </div>
+
+  <div class="card">
+    <h3>Machine Learning for Earth Systems</h3>
+
+    <p>
+      Application of machine learning methods to geophysical datasets.
+    </p>
+  </div>
+
+</div>
