@@ -1,0 +1,182 @@
+body {
+  font-family: Arial;
+  max-width: 900px;
+  margin: auto;
+  padding: 40px;
+  line-height: 1.6;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/3/3f/Fourier_transform_time_frequency.gif");
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* main content box */
+.content {
+  background: rgba(255, 255, 255, 0.92);
+  padding: 25px;
+  border-radius: 10px;
+}
+
+/* sidebar */
+.sidebar {
+  position: fixed;
+  left: 20px;
+  top: 100px;
+  width: 160px;
+  font-size: 14px;
+}
+
+.sidebar a {
+  display: block;
+  margin: 5px 0;
+  text-decoration: none;
+  color: #333;
+}
+
+.sidebar a:hover {
+  color: #0077cc;
+}
+
+/* headings */
+h1 {
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+}
+
+.card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 15px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.5px;
+}
+
+
+/*-----------------------------------------------------------------------------------------*/
+.paper {
+  position: relative;
+  margin: 18px 0;
+  padding: 14px 16px;
+  background: rgba(245, 245, 245, 0.65);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  counter-increment: paper;
+}
+
+/* numbering badge */
+.paper::before {
+  content: counter(paper);
+  position: absolute;
+  left: -10px;
+  top: -10px;
+  background: #666;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+/* text styles */
+.authors {
+  font-size: 13px;
+  color: #444;
+}
+
+.me {
+  font-weight: 700;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 600;
+  display: block;
+  margin: 4px 0;
+  color: #111;
+}
+
+.venue {
+  font-size: 12px;
+  color: #666;
+}
+
+.venue a {
+  color: #0077cc;
+  text-decoration: none;
+}
+
+.venue a:hover {
+  text-decoration: underline;
+}
+/*-----------------------------------------------------------------------------------------*/
+.contact-card {
+  margin-top: 20px;
+  background: rgba(245, 245, 245, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* each row */
+.contact-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.contact-item:last-child {
+  border-bottom: none;
+}
+
+/* label (Email, GitHub, etc.) */
+.label {
+  font-weight: 600;
+  color: #444;
+}
+
+/* value */
+.value {
+  color: #0077cc;
+  text-decoration: none;
+}
+
+a.value:hover {
+  text-decoration: underline;
+}
+/*-----------------------------------------------------------------------------------------*/
+.project-card {
+  background: rgba(245, 245, 245, 0.75);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  padding: 15px 18px;
+  margin: 15px 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+}
+
+.project-card h3 {
+  margin: 0;
+  font-size: 17px;
+  color: #111;
+}
+
+.type {
+  margin-top: 5px;
+  font-size: 13px;
+  color: #666;
+}
+/*-----------------------------------------------------------------------------------------*/

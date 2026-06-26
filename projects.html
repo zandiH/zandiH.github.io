@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="style.css">
   <title>Projects - Hooshmand Zandi</title>
   <style>
     body {
@@ -24,13 +25,159 @@
       border-bottom: 2px solid #eee;
       padding-bottom: 10px;
     }
-    .card {
-      border: 1px solid #ddd;
-      padding: 15px;
+    .project-card {
+      background: rgba(245, 245, 245, 0.75);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      padding: 15px 18px;
       margin: 15px 0;
-      border-radius: 8px;
-      background: white;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      transition: transform 0.2s ease;
+      cursor: pointer;
     }
+    .project-card:hover {
+      transform: translateY(-3px);
+    }
+    .project-card h3 {
+      margin: 0;
+      font-size: 17px;
+      color: #111;
+    }
+    .project-card .type {
+      margin-top: 5px;
+      font-size: 13px;
+      color: #666;
+    }
+    .project-card .expand-indicator {
+      float: right;
+      font-size: 14px;
+      color: #0077cc;
+      background: rgba(0, 119, 204, 0.1);
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .project-card:hover .expand-indicator {
+      background: rgba(0, 119, 204, 0.2);
+    }
+    .project-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      padding-top: 0;
+    }
+    .project-details.open {
+      max-height: 2000px;
+      opacity: 1;
+      padding-top: 12px;
+    }
+    .project-details p {
+      margin: 6px 0;
+      font-size: 14px;
+      color: #444;
+    }
+    .project-details ul {
+      margin: 6px 0;
+      padding-left: 20px;
+      font-size: 14px;
+      color: #444;
+    }
+    .project-details .tech-tag {
+      display: inline-block;
+      background: #e8f0fe;
+      color: #0077cc;
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      margin: 3px 4px 3px 0;
+    }
+
+    /* Two-column layout for projects */
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 8px;
+    }
+    .project-grid .steps {
+      font-size: 13px;
+      color: #333;
+    }
+    .project-grid .steps ol {
+      padding-left: 18px;
+      margin: 4px 0;
+    }
+    .project-grid .steps li {
+      margin-bottom: 4px;
+    }
+    .project-grid .steps strong {
+      color: #111;
+    }
+    .project-grid .figure-placeholder {
+      background: rgba(200, 200, 200, 0.15);
+      border: 2px dashed #aaa;
+      border-radius: 8px;
+      height: 100%;
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #888;
+      font-size: 13px;
+      text-align: center;
+      padding: 10px;
+    }
+    .project-grid .figure-placeholder .icon {
+      font-size: 40px;
+      margin-bottom: 6px;
+      color: #bbb;
+    }
+    .project-grid .figure-placeholder .caption {
+      font-size: 11px;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    /* new: two extra figures at bottom of project 2 details */
+    .extra-figures {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 24px;
+      padding-top: 12px;
+      border-top: 1px solid #ddd;
+    }
+    .extra-figures .figure-box {
+      background: rgba(200, 200, 200, 0.15);
+      border: 2px dashed #aaa;
+      border-radius: 8px;
+      padding: 12px 10px 10px 10px;
+      text-align: center;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .extra-figures .figure-box .icon {
+      font-size: 40px;
+      color: #bbb;
+      margin-bottom: 4px;
+    }
+    .extra-figures .figure-box img {
+      width: 100%;
+      border-radius: 6px;
+      background: #f9f9f9;
+    }
+    .extra-figures .figure-box .caption {
+      font-size: 11px;
+      color: #555;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
     .sidebar {
       position: fixed;
       left: 20px;
@@ -47,6 +194,15 @@
     .sidebar a:hover {
       color: #0077cc;
     }
+
+    @media (max-width: 650px) {
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+      .extra-figures {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -59,15 +215,287 @@
 
   <div class="content">
     <h1>Projects</h1>
-    <div class="card">
-      <h3>Geophysical Inversion Prototype</h3>
-      <p>Simple inversion framework for estimating model parameters from synthetic data.</p>
-      <img src="your_figure.png" style="width:100%; border-radius:8px;">
-    </div>
-    <div class="card">
-      <h3>Machine Learning for Earth Systems</h3>
-      <p>Application of machine learning methods to geophysical datasets.</p>
+
+  <!-- Project 1 - PhD -->
+<div class="project-card" onclick="toggleProject(this)">
+  <h3>
+    Sea Ice Thickness Reconstruction Using Icequake Waveform Inversion and Tomography
+    <span class="expand-indicator">▼ expand</span>
+  </h3>
+  <p class="type">PhD Research — ISTerre, Université Grenoble Alpes (Oct. 2022 – Dec. 2025)</p>
+  <!-- objective line -->
+  <p class="type" style="margin-top:2px;">
+    <span style="color: #cc0000; font-weight: 600;">Objective:</span> to reconstruct high-resolution spatial and temporal sea ice thickness maps using waveform inversion of icequake data and seismic tomography
+  </p>
+  <div class="project-details">
+    <!-- grid: left = steps, right = figures -->
+    <div class="project-grid">
+      <div class="steps">
+        <p style="font-weight:600; margin:0 0 6px 0; color:#111;">Input Data:</p>
+        <ul style="font-size:13px; color:#444; margin-top:0; padding-left:18px;">
+          <li><strong>Controlled-source data (Canada):</strong> Baie du Ha! Ha!, St. Lawrence Estuary — 16 geophones (3C) + 33 hammer-shot sources along a ~60m-radius circle (Feb 2025), installed at the boundary of two ice blocks: 45±5 cm (right) and 65±5 cm (left) thickness</li>
+          <li><strong>Passive-source data (Svalbard):</strong> Van Mijen Fjord, Norway — 247 geophones (1C/3C): 231 in a ~50 m × 50 m square array, plus four 4-station linear arrays ~125 m from the center on each side (Feb–Mar 2019)</li>
+        </ul>
+
+        <p style="font-weight:600; margin:12px 0 6px 0; color:#111;">Workflow:</p>
+
+<p style="font-size:13px; color:#444; margin:4px 0 8px 0;">
+  <strong>1. SEM database construction</strong><br>
+  Pre-computing waveforms using the Spectral Element Method (SEM) for a range of source-receiver distances and ice thicknesses to build a synthetic database, accelerating inversion without costly on-the-fly simulations
+</p>
+
+<p style="font-size:13px; color:#444; margin:4px 0 8px 0;">
+  <strong>2. Multi-step inversion (passive data)</strong><br>
+  Simulated annealing (SA) is applied in two stages: first to estimate a constant ice thickness and source location, then with increased degrees of freedom to refine the solution and obtain path-wise ice thicknesses. A final grid search is then performed to estimate all path-wise thicknesses across the network using previously localized events.
+</p>
+
+<p style="font-size:11px; color:#666; margin:0 0 8px 0; padding-left:4px;">
+  <strong>Note:</strong> For active-source experiments, only the grid search step is applied, as source locations are already known.
+</p>
+
+
+<p style="font-size:13px; color:#444; margin:4px 0 8px 0;">
+  <strong>3. 2D tomographic inversion</strong><br>
+  Solving the minimization problem:
+</p>
+
+<div style="background:#f5f5f5; padding:10px 14px; margin:6px 0; border-radius:4px; font-family:monospace; font-size:13px; overflow-x:auto; text-align:center;">
+  ||W<sub>d</sub>(A h − h<sub>obs</sub>)||² + α²||W<sub>m</sub>(h − h<sub>prior</sub>)||² + β²||L h||²
+</div>
+
+<ul style="font-size:13px; color:#444; margin-top:4px; padding-left:20px;">
+  <li><strong>h</strong>: unknown ice thickness </li>
+  <li><strong>h<sub>obs</sub></strong>: observed path-averaged thickness</li>
+  <li><strong>A</strong>: ray-path matrix</li>
+  <li><strong>h<sub>prior</sub></strong>: prior model (e.g., previous day or drillings)</li>
+  <li><strong>L</strong>: Laplacian smoothing operator</li>
+  <li><strong>α, β</strong>: regularization weights</li>
+</ul>
+
+        <p style="font-weight:600; margin:12px 0 4px 0; color:#111;">Key results:</p>
+        <ul style="font-size:13px; color:#444; margin-top:0; padding-left:18px;">
+  <li><strong>Active source (Canada):</strong> Recovered sharp 45–65 cm thickness contrast across the array. Validated against drilling data (bias attributed to soft porous bottom layer) and DAS-based estimates (<a href="https://doi.org/10.48550/arXiv.2601.10858" target="_blank" style="color:#0077cc; text-decoration:underline;">Kuchly et al., 2026</a>)</li>
+  <li><strong>Passive source (Svalbard):</strong> Daily tomography over 25 days using >5,300 icequakes. Captured 10–15 cm thickness growth over time, with thicker ice near shorelines and spatial variability. Validated against drillings and <a href="https://doi.org/10.5194/tc-16-2527-2022" target="_blank" style="color:#0077cc; text-decoration:underline;">Serripierri et al. (2022)</a></li>
+</ul>
+
+        <p style="font-weight:600; margin:12px 0 4px 0; color:#111;">Skills:</p>
+        <div style="display:flex; flex-wrap:wrap; gap:4px;">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Fortran</span>
+          <span class="tech-tag">Spectral Element Method</span>
+          <span class="tech-tag">Waveform inversion</span>
+          <span class="tech-tag">Simulated Annealing and grid search</span>
+          <span class="tech-tag">Seismic Tomography</span>
+          <span class="tech-tag">HPC</span>
+        </div>
+        <p style="font-size:12px; color:#666; margin:6px 0 0 0;">
+          <strong>Supervisors:</strong> Ludovic Moreau, Ludovic Métivier, Romain Brossier<br>
+          <strong>Publication:</strong> Zandi et al. (2026), EGUsphere
+        </p>
+      </div>
+      <!-- right column: figures -->
+      <div style="display:flex; flex-direction:column; gap:20px; padding:10px 0;">
+        <!-- Figure 1: Canada experiment + active results -->
+        <div>
+        <!-- Figure 1: Svalbard array -->
+          <img src="images/int4_1.png" alt="Svalbard array" style="width:100%; border-radius:6px; background:#fafafa; border:2px dashed #aaa;">
+          <p style="font-size:12px; color:#555; margin:8px 0 0 0; text-align:center; line-height:1.5;">
+          <strong>Figure 1:</strong> (Above) Active-source experiment. a) Location of experiment on the St. Lawrence Estuary (Canada); red dot indicates the site. b) Aerial photograph of fast ice showing geophones (green triangles) and controlled sources (red stars) (data from <a href="https://doi.org/10.5194/egusphere-2025-3304" target="_blank" style="color:#0077cc; text-decoration:underline;">Kuchly et al., 2025</a>). (Bottom) Natural-source experiment: Van Mijen Fjord in Svalbard (Norway), showing the array of geophones for the passive experiment (for details on the array and experiment, refer to <a href="https://doi.org/10.1029/2019JC015709" target="_blank" style="color:#0077cc; text-decoration:underline;">Moreau et al., 2020a</a>).
+          </p>
+        </div>
+        <!-- Figure 2: active data -->
+        <div>
+          <img src="images/int4_2.png" alt="Ray coverage March 1 and 20" style="width:100%; border-radius:6px; background:#fafafa; border:2px dashed #aaa;">
+          <p style="font-size:12px; color:#555; margin:8px 0 0 0; text-align:center; line-height:1.5;">
+           <strong>Figure 2:</strong> Results of the tomographic inversion of the active-source data recorded on 10 February 2025 in Canada. (Left) 2D map of the ice thickness and (right) cross-section of the tomography along the red dotted line (purple solid line), for comparison with thicknesses from <a href="https://doi.org/10.48550/arXiv.2601.10858" target="_blank" style="color:#0077cc; text-decoration:underline;">Kuchly et al. (2026)</a> by inverting Distributed Acoustic Sensing seismic data (dotted blue line) and drillings (filled circles).
+           </p>
+        </div>
+
+        <!-- Figure 3: passive data -->
+        <div>
+          <img src="images/int4_3.png" alt="Ray coverage March 1 and 20" style="width:100%; border-radius:6px; background:#fafafa; border:2px dashed #aaa;">
+          <p style="font-size:12px; color:#555; margin:8px 0 0 0; text-align:center; line-height:1.5;">
+            <strong>Figure 3:</strong> Results of the tomographic inversion of the natural-source data recorded in February and March 2019 in Svalbard. (a) The mesh used for the tomography is shown on the left, while on the right we see an example of path coverage for March 1. (b) Daily tomography maps, here the results shown for March 1 and 20, providing spatial and temporal changes in ice thickness.
+         </p>
+        </div>
+
+
+      </div>
     </div>
   </div>
+</div>
+
+
+     <!-- Project 2 - M2 Internship -->
+<div class="project-card" onclick="toggleProject(this)">
+  <h3>
+    Sensitivity of Guided Seismic Waves in Sea Ice to Overlying Snow Layer Thickness
+    <span class="expand-indicator">▼ expand</span>
+  </h3>
+  <p class="type">M2 Research Internship — ISTerre, Université Grenoble Alpes (Feb. – July 2022)</p>
+  <!-- objective line, like project 3 style -->
+  <p class="type" style="margin-top:2px;">
+    <span style="color: #cc0000; font-weight: 600;">Objective:</span> To model guided-wave propagation in sea ice using spectral-element simulations and assess the limitations of thin-plate approximations, particularly their inability to account for overlying snow layers and to accurately describe wave propagation at high frequencies
+  </p>
+  <div class="project-details">
+    <!-- grid: left = steps+skills, right = figures -->
+    <div class="project-grid">
+      <div class="steps">
+        <p style="font-weight:600; margin:0 0 6px 0; color:#111;">Workflow:</p>
+        <ol>
+          <li><strong>Spectral element method</strong> for 2D coupled acoustic-elastic wave modeling in layered ice-water and ice-water-snow systems</li>
+          <li><strong>Compare SEM and thin-plate models</strong>: first, validate the SEM simulations against analytical solutions for a simple reference case to confirm their accuracy. Then, simulate waveforms for ice and ice-snow systems using sources with different central frequencies and compare them against waveforms generated by the thin-plate (asymptotic) approximation. The comparison shows that while SEM matches the analytical solutions, the thin-plate waveforms deviate from the SEM waveforms in the presence of a snow layer, and this deviation becomes more pronounced as the source frequency increases. For example, Figure 2 illustrates this comparison for an ice-water system (no snow) with a 1 m ice layer and a 15 Hz Ricker wavelet source, clearly showing the discrepancy, particularly at high frequencies.</li>
+          <li><strong>Sensitivity analysis - inversion biases</strong>: use SEM simulations as ground truth (with known ice thickness and source location) and invert for these parameters using an inversion scheme based on Simulated Annealing and MCMC, where synthetic waveforms are generated from thin-plate models. Evaluate how the estimates of ice thickness and source location are biased when a snow layer is present and at higher frequencies. Again, Figure 3 shows the results for a simple case of an ice-water system, demonstrating that both ice thickness and source distance are increasingly underestimated as the peak frequency of the source wavelet increases (tested for 5, 10, 15, and 25 Hz Ricker wavelets).</li>
+        </ol>
+        <p style="font-weight:600; margin:12px 0 4px 0; color:#111;">Skills:</p>
+        <div style="display:flex; flex-wrap:wrap; gap:4px;">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Fortran</span>
+          <span class="tech-tag">Spectral element method</span>
+          <span class="tech-tag">Thin-plate modeling</span>
+          <span class="tech-tag">Stochastic inversion (MCMC and SA)</span>
+          <span class="tech-tag">HPC</span>
+          <span class="tech-tag">Shell scripting</span>
+        </div>
+        <p style="font-size:12px; color:#666; margin:6px 0 0 0;">
+          <strong>Supervisors:</strong> Ludovic Moreau, Ludovic Métivier, Romain Brossier
+        </p>
+      </div>
+      <!-- right column: figures stacked vertically with proper spacing -->
+      <div style="display:flex; flex-direction:column; gap:30px; padding:10px 0;">
+        <!-- Figure 1 -->
+        <div>
+          <img src="images/int3_1.png" alt="Waveform components" style="width:100%; border-radius:6px; background:#f9f9f9; border:2px dashed #aaa;">
+          <p style="font-size:12px; color:#555; margin:8px 0 0 0; text-align:center; line-height:1.5;">
+            <strong>Figure 1:</strong> Wave propagation simulation in a floating ice (+ snow) layer for a source located in ice, at three different times, using an efficient fluid–solid coupled spectral-element solver
+            (<a href="https://doi.org/10.1093/gji/ggab484" target="_blank" style="color:#0077cc; text-decoration:underline;">Cao et al., 2021</a>).
+          </p>
+        </div>
+        <!-- Figure 2 -->
+        <div>
+          <img src="images/int3_2.png" alt="SEM vs thin-plate comparison" style="width:100%; border-radius:6px; background:#fafafa; border:2px dashed #aaa;">
+          <p style="font-size:12px; color:#555; margin:8px 0 0 0; text-align:center; line-height:1.5;">
+            <strong>Figure 2:</strong> Comparison of SEM and thin-plate (asymptotic) waveforms for an ice-water system (1 m ice, 15 Hz Ricker source, recorded at the distance of 300 m from the source). The thin-plate approximation deviates from the SEM solution, particularly at high frequencies.
+          </p>
+        </div>
+        <!-- Figure 3 -->
+        <div>
+          <img src="images/int3_3.png" alt="Inversion bias results" style="width:100%; border-radius:6px; background:#fafafa; border:2px dashed #aaa;">
+          <p style="font-size:12px; color:#555; margin:8px 0 0 0; text-align:center; line-height:1.5;">
+            <strong>Figure 3:</strong> Sensitivity analysis for ice thickness and source location using thin-plate models against SEM ground truth. Both parameters are increasingly underestimated as the source peak frequency increases (5–25 Hz).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Project 3 - M1 Internship -->
+    <div class="project-card" onclick="toggleProject(this)">
+      <h3>
+        Analysis of Icequakes to Characterize Lake Ice
+        <span class="expand-indicator">▼ expand</span>
+      </h3>
+      <p class="type">M1 Research Internship — ISTerre, Université Grenoble Alpes (June – July 2021)</p>
+      <p class="type" style="margin-top:2px;">
+        <span style="color: #cc0000; font-weight: 600;">Objective:</span> to analyze icequake signals recorded on Lake Pääjärvi (Southern Finland) and apply inversion methods to estimate ice properties (elastic constants, thickness) and source locations
+      </p>
+      <div class="project-details">
+        <div class="project-grid">
+          <div class="steps">
+            <p style="font-weight:600; margin:0 0 6px 0; color:#111;">Workflow:</p>
+            <ol>
+              <li><strong>Extraction</strong> of icequakes from passive seismic data</li>
+              <li><strong>Estimating elastic constants</strong> from horizontal channels using array processing</li>
+              <li><strong>Stochastic waveform inversion</strong> (MCMC and SA) based on minimization of the misfit between observed and synthetic data to derive a constant ice thickness (between the source and stations) and source location   (<a href="https://doi.org/10.1029/2020JC016492" target="_blank" style="color:#0077cc; text-decoration:underline;">Moreau et al., 2020b</a>)</li>
+            </ol>
+            <p style="font-size:12px; color:#666; margin:4px 0 0 18px;">
+              <em>Synthetics: flexural waveforms generated numerically using thin-plate theory; observed data: flexural waves recorded on the vertical channel</em>
+            </p>
+            <p style="font-weight:600; margin:12px 0 4px 0; color:#111;">Skills:</p>
+            <div style="display:flex; flex-wrap:wrap; gap:4px;">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">Seismic data processing</span>
+              <span class="tech-tag">Array processing</span>
+              <span class="tech-tag">Stochastic inversion (MCMC and SA)</span>
+              <span class="tech-tag">Thin-plate modeling</span>
+            </div>
+            <p style="font-size:12px; color:#666; margin:6px 0 0 0;">
+              <strong>Supervisor:</strong> Ludovic Moreau
+            </p>
+          </div>
+          <div class="figure-placeholder">
+            <img src="images/int2.png" alt="Waveform components" style="width:100%; border-radius:6px; background:#f9f9f9;">
+            <p style="font-size:12px; color:#666; margin:8px 0 0 0; text-align:center; line-height:1.4;">
+              <strong>Figure 1:</strong> Example of icequake waveforms (b) recorded on Lake Pääjärvi, Southern Finland (a). Horizontal channels (R and T) are used for the estimation of elastic constants; vertical channel (Z) is used for stochastic inversion of ice thickness and source location. (c) Example of fit between synthetic data (blue) and observed data (dashed) for the best model parameters found (source location and ice thickness) in the inversion.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 4 - Master's Internship -->
+    <div class="project-card" onclick="toggleProject(this)">
+      <h3>
+        2D Surface Wave Tomography of NW Iran from Local Earthquakes and Ambient Noise
+        <span class="expand-indicator">▼ expand</span>
+      </h3>
+      <p class="type">Master's Research Internship — Institute of Geophysics, University of Tehran (Jan–Aug 2014)</p>
+      <p class="type" style="margin-top:2px;">
+        <span style="color: #cc0000; font-weight: 600;">Objective:</span> to construct 2D Rayleigh-wave group-velocity maps from local earthquake and ambient noise data in NW Iran for imaging the crust and uppermost mantle and to investigate regional tectonic processes
+      </p>
+      <div class="project-details">
+        <div class="project-grid">
+          <div class="steps">
+            <p style="font-weight:600; margin:0 0 6px 0; color:#111;">Workflow:</p>
+            <ol>
+              <li><strong>Data and preprocessing:</strong> local earthquakes + noise correlation functions (vertical component: Rayleigh waves)</li>
+              <li><strong>Dispersion measurement (FTAN):</strong> extraction of Rayleigh wave group velocity dispersion curves</li>
+              <li><strong>Path selection:</strong> quality control of dispersion measurements based on travel time residual</li>
+              <li><strong>2-D linear inversion (Ditmar &amp; Yanovskaya):</strong> to obtain Rayleigh wave group velocity maps for each period (from 2-70 s)</li>
+              <li><strong>Resolution assessment and interpretation</strong></li>
+            </ol>
+            <p style="font-weight:600; margin:12px 0 4px 0; color:#111;">Skills:</p>
+            <div style="display:flex; flex-wrap:wrap; gap:4px;">
+              <span class="tech-tag">Python</span>
+              <span class="tech-tag">MATLAB</span>
+              <span class="tech-tag">Shell scripting</span>
+              <span class="tech-tag">Generic Mapping Tools (GMT)</span>
+              <span class="tech-tag">Frequency Time ANalysis (FTAN)</span>
+              <span class="tech-tag">Seismic data processing</span>
+              <span class="tech-tag">Ambient noise cross-correlation</span>
+              <span class="tech-tag">Tomographic inversion</span>
+            </div>
+            <p style="font-size:12px; color:#666; margin:6px 0 0 0;">
+              <strong>Supervisor:</strong> Habib Rahimi
+            </p>
+          </div>
+          <div class="figure-placeholder">
+            <img src="images/int1.png" alt="Rayleigh wave group velocity map" style="width:100%; border-radius:6px;">
+            <p style="font-size:12px; color:#666; margin:8px 0 0 0; text-align:center; line-height:1.4;">
+              <strong>Figure 1:</strong> (a) Example waveform record showing the raw signal and the extracted fundamental-mode signal (red). (b) FTAN images (frequency–time representations) of the raw signal (left) and the extracted fundamental-mode signal (right). (c) Ray-path coverage at a period of 10 s and the corresponding tomographic map (d).
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleProject(card) {
+      const details = card.querySelector('.project-details');
+      const indicator = card.querySelector('.expand-indicator');
+
+      if (details.classList.contains('open')) {
+        details.classList.remove('open');
+        indicator.textContent = '▼ expand';
+      } else {
+        details.classList.add('open');
+        indicator.textContent = '▲ collapse';
+      }
+    }
+  </script>
+
 </body>
 </html>

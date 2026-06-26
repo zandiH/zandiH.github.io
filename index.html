@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+  <link rel="stylesheet" href="style.css">
   <title>Hooshmand Zandi</title>
 
   <style>
@@ -37,6 +39,143 @@
       text-decoration: none;
       color: #333;
     }
+
+    .sidebar a:hover {
+      color: #0077cc;
+    }
+
+    h1 {
+      border-bottom: 2px solid #eee;
+      padding-bottom: 10px;
+    }
+
+    /* --- Education expandable card (different style) --- */
+    .education-card {
+      background: linear-gradient(135deg, #f0f4ff 0%, #e8edf5 100%);
+      border: 2px solid #4a6fa5;
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin: 18px 0 10px 0;
+      box-shadow: 0 4px 12px rgba(74, 111, 165, 0.15);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .education-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(74, 111, 165, 0.25);
+    }
+
+    .education-card .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .education-card .header-row h2 {
+      margin: 0;
+      font-size: 18px;
+      color: #2c3e6b;
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .education-card .expand-indicator-edu {
+      font-size: 14px;
+      color: #4a6fa5;
+      background: rgba(74, 111, 165, 0.15);
+      padding: 2px 14px;
+      border-radius: 20px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .education-card:hover .expand-indicator-edu {
+      background: rgba(74, 111, 165, 0.25);
+    }
+
+    .education-card .current-status {
+      font-size: 14px;
+      color: #2c3e6b;
+      margin-top: 4px;
+    }
+
+    .education-details {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.4s ease, opacity 0.4s ease;
+      opacity: 0;
+      padding-top: 0;
+    }
+
+    .education-details.open {
+      max-height: 900px;
+      opacity: 1;
+      padding-top: 14px;
+    }
+
+    .edu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 10px 12px;
+      margin: 6px 0;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      border-left: 4px solid #4a6fa5;
+      transition: background 0.2s;
+    }
+
+    .edu-item:hover {
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .edu-item .edu-left {
+      flex: 1;
+    }
+
+    .edu-item .edu-left .degree {
+      font-weight: 700;
+      color: #1a2a4a;
+      font-size: 15px;
+    }
+
+    .edu-item .edu-left .institution {
+      font-size: 13px;
+      color: #444;
+      margin-top: 2px;
+    }
+
+    .edu-item .edu-left .location {
+      font-size: 12px;
+      color: #888;
+      margin-top: 1px;
+    }
+
+    .edu-item .edu-left .details {
+      font-size: 12px;
+      color: #666;
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    .edu-item .edu-right {
+      font-size: 13px;
+      color: #4a6fa5;
+      font-weight: 600;
+      white-space: nowrap;
+      margin-left: 15px;
+      padding-top: 2px;
+    }
+
+    /* Research Interests */
+    .interests-list {
+      margin-top: 4px;
+    }
+    .interests-list li {
+      margin-bottom: 3px;
+    }
+
   </style>
 </head>
 
@@ -44,22 +183,92 @@
 
   <div class="sidebar">
     <p><a href="index.html">Home</a></p>
-    <p><a href="projects/">Projects</a></p>
-    <p><a href="publications/">Publications</a></p>
-    <p><a href="contact/">Contact</a></p>
+    <p><a href="projects.html">Projects</a></p>
+    <p><a href="publications.html">Publications</a></p>
+    <p><a href="contact.html">Contact</a></p>
   </div>
 
   <div class="content">
     <h1>Hooshmand Zandi</h1>
-    <p>PhD in Geophysics</p>
+
+    <!-- Education: Expandable Card -->
+    <div class="education-card" onclick="toggleEducation(this)">
+      <div class="header-row">
+        <div>
+          <h2>🎓 Education</h2>
+          <div class="current-status">PhD in Geophysics — Université Grenoble Alpes</div>
+        </div>
+        <span class="expand-indicator-edu">▼ expand</span>
+      </div>
+      <div class="education-details">
+
+        <div class="edu-item">
+          <div class="edu-left">
+            <div class="degree">PhD in Geophysics</div>
+            <div class="institution">Université Grenoble Alpes</div>
+            <div class="location">Grenoble, France</div>
+            <div class="details">Sea ice thickness Reconstruction using icequake waveform inversion and tomography</div>
+          </div>
+          <div class="edu-right">2022–2025</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-left">
+            <div class="degree">Master's in Geophysics</div>
+            <div class="institution">Université Grenoble Alpes</div>
+            <div class="location">Grenoble, France</div>
+            <div class="details"> Internship-M1: Icequake analysis for lake ice characterization . Internship-M2: Sensitivity of Guided Seismic Waves in Sea Ice to Overlying Snow Layer Thickness</div>
+          </div>
+          <div class="edu-right">2020–2022</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-left">
+            <div class="degree">Master's in Seismology</div>
+            <div class="institution">Institute of Geophysics, University of Tehran</div>
+            <div class="location">Tehran, Iran</div>
+            <div class="details">Internship: 2D surface wave tomography of NW Iran from local earthquakes and ambient noise</div>
+          </div>
+          <div class="edu-right">2011–2014</div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-left">
+            <div class="degree">Bachelor's in Geology</div>
+            <div class="institution">Kharazmi University</div>
+            <div class="location">Tehran, Iran</div>
+            <div class="details"></div>
+          </div>
+          <div class="edu-right">2007–2011</div>
+        </div>
+
+      </div>
+    </div>
 
     <h2>Research Interests</h2>
-    <ul>
-      <li>Inverse problems</li>
-      <li>Geophysical modeling</li>
-      <li>Machine learning for Earth systems</li>
+    <ul class="interests-list">
+      <li>Numerical modeling and computational geophysics</li>
+      <li>Inverse problems and subsurface imaging</li>
+      <li>Signal processing</li>
+      <li>Machine learning for Earth system applications</li>
+      <li>High-performance computing and scientific programming</li>
     </ul>
   </div>
+
+  <script>
+    function toggleEducation(card) {
+      const details = card.querySelector('.education-details');
+      const indicator = card.querySelector('.expand-indicator-edu');
+
+      if (details.classList.contains('open')) {
+        details.classList.remove('open');
+        indicator.textContent = '▼ expand';
+      } else {
+        details.classList.add('open');
+        indicator.textContent = '▲ collapse';
+      }
+    }
+  </script>
 
 </body>
 </html>
